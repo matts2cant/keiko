@@ -1,14 +1,15 @@
 import * as React from 'react';
 
+import Pokemon from 'components/Pokemon';
 import Style from './Home.style';
 
 class Home extends React.Component {
   render(): React.ReactNode {
     return (
       <Style.Intro>
-        <div>Nom: Carapuce</div>
-        <div>Id: 7</div>
-        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png" />
+        <Pokemon name="Carapuce" id={7} />
+        <Pokemon name="Carabaffe" id={8} />
+        <Pokemon name="Tortank" id={9} />
       </Style.Intro>
     );
   }
