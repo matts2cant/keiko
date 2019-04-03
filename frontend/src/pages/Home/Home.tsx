@@ -24,14 +24,12 @@ class Home extends React.Component<Props, State> {
   render() {
     const { pokemons } = this.state;
     if (!pokemons.length) return null;
-    const [pokemon] = this.state.pokemons;
 
     return (
       <Style.Intro>
-        <Pokemon name={pokemon.name} id={pokemon.id} />
-        <Pokemon name="Carapuce" id={7} />
-        <Pokemon name="Carabaffe" id={8} />
-        <Pokemon name="Tortank" id={9} />
+        {pokemons.map(({ name, id }) => (
+          <Pokemon name={name} id={id} key={id} />
+        ))}
       </Style.Intro>
     );
   }
