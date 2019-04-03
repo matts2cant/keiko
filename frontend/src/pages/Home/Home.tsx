@@ -9,6 +9,8 @@ interface State {
   pokemons: {
     id: number;
     name: string;
+    weight: number;
+    height: number;
   }[];
 }
 
@@ -27,8 +29,8 @@ class Home extends React.Component<Props, State> {
 
     return (
       <Style.Intro>
-        {pokemons.map(({ name, id }) => (
-          <Pokemon name={name} id={id} key={id} />
+        {pokemons.map(({ name, id, height, weight }) => (
+          <Pokemon name={name} weight={weight} height={height} id={id} key={id} />
         ))}
       </Style.Intro>
     );
