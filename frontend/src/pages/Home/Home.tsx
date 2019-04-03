@@ -13,29 +13,33 @@ interface State {
     height: number;
   }[];
   loading: boolean;
+  error: string | null;
 }
 
 class Home extends React.Component<Props, State> {
   state: State = {
     pokemons: [],
     loading: false,
+    error: null,
   };
 
   componentDidMount() {
     this.setState({ loading: true });
-    makeGetRequest('/pokemon').then(({ body: pokemons }) =>
-      this.setState({ pokemons, loading: false }),
-    );
+    makeGetRequest('/pokemon')
+      .then(({ body: pokemons }) => this.setState({ pokemons, loading: false }))
+      .catch(error => this.setState({ error: error.toString(), loading: false }));
   }
 
   render() {
-    const { pokemons, loading } = this.state;
+    const { error, pokemons, loading } = this.state;
 
     return (
       <Style.Wrapper>
         <Style.Title>Pokedex</Style.Title>
         {loading ? (
           <Style.Loader src={loader} alt="Loading..." />
+        ) : error ? (
+          <Style.Error>{error}</Style.Error>
         ) : (
           <Style.PokemonsWrapper>
             {pokemons.length &&
