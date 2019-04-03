@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import Pokemon from 'components/Pokemon';
 import Style from './Home.style';
 import { makeGetRequest } from 'services/networking/request';
 
@@ -28,11 +27,14 @@ class Home extends React.Component<Props, State> {
     if (!pokemons.length) return null;
 
     return (
-      <Style.Intro>
-        {pokemons.map(({ name, id, height, weight }) => (
-          <Pokemon name={name} weight={weight} height={height} id={id} key={id} />
-        ))}
-      </Style.Intro>
+      <Style.Wrapper>
+        <Style.Title>Pokedex</Style.Title>
+        <Style.PokemonsWrapper>
+          {pokemons.map(({ name, id, height, weight }) => (
+            <Style.Pokemon name={name} weight={weight} height={height} id={id} key={id} />
+          ))}
+        </Style.PokemonsWrapper>
+      </Style.Wrapper>
     );
   }
 }
