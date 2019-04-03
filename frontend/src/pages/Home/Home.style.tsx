@@ -11,6 +11,11 @@ export default {
   Pokemon: styled(Pokemon)`
     margin: 10px;
   `,
+  Loader: styled.img`
+    height: 100px;
+    margin: 0 auto;
+    display: block;
+  `,
   Title: styled.h1`
     font-size: 30px;
     text-align: center;
