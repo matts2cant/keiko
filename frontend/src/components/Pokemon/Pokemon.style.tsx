@@ -1,7 +1,10 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export default {
-  Wrapper: styled.div`
+  Wrapper: styled(Link)`
+    text-decoration: none;
+    color: black;
     display: flex;
     align-items: center;
     flex-direction: column;

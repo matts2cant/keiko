@@ -27,14 +27,16 @@ const getSpriteUrl = (position: PositionType, id: number) => {
 const Pokemon = ({ name, id, weight, height }: Props) => {
   const [position, setPosition] = React.useState<PositionType>('front');
 
+  const repositionPokemon = (event: React.MouseEvent) => {
+    event.preventDefault();
+    setPosition(position === 'front' ? 'back' : 'front');
+  };
+
   return (
-    <Style.Wrapper>
+    <Style.Wrapper to={`pokemon/${id}`}>
       <Style.Name>{name}</Style.Name>
       <img src={getSpriteUrl(position, id)} />
-      <Style.TurnIcon
-        onClick={() => setPosition(position === 'front' ? 'back' : 'front')}
-        src={turnIcon}
-      />
+      <Style.TurnIcon onClick={repositionPokemon} src={turnIcon} />
       <Style.Attribute>Id: {id}</Style.Attribute>
       <Style.Attribute>Weight: {weight / 10} kg</Style.Attribute>
       <Style.Attribute>Height: {height * 10} cm</Style.Attribute>
