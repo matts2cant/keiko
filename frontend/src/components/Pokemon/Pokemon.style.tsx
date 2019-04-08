@@ -12,6 +12,13 @@ export default {
     border: black 5px double;
     margin: 10px;
     font-family: 'Pokemon', Sans-Serif;
+    position: relative;
+  `,
+  TurnIcon: styled.img`
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
   `,
   Name: styled.div`
     font-size: 12px;
