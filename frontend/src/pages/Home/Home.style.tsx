@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Pokemon from 'components/Pokemon';
+import { Link } from 'react-router-dom';
 
 export default {
   PokemonsWrapper: styled.div`
@@ -10,6 +11,15 @@ export default {
   `,
   Pokemon: styled(Pokemon)`
     margin: 10px;
+  `,
+  PageLinkWrapper: styled.div`
+    display: flex;
+    justify-content: space-between;
+  `,
+  PageLink: styled(Link)`
+    text-decoration: none;
+    color: black;
+    font-size: 30px;
   `,
   Loader: styled.img`
     height: 100px;

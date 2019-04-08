@@ -33,7 +33,7 @@ const Pokemon = ({ name, id, weight, height }: Props) => {
   };
 
   return (
-    <Style.Wrapper to={`pokemon/${id}`}>
+    <Style.Wrapper to={`/pokemon/${id}`}>
       <Style.Name>{name}</Style.Name>
       <img src={getSpriteUrl(position, id)} />
       <Style.TurnIcon onClick={repositionPokemon} src={turnIcon} />
