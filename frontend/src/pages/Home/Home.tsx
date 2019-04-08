@@ -5,55 +5,50 @@ import { makeGetRequest } from 'services/networking/request';
 import loader from '../../loader.svg';
 
 interface Props {}
-interface State {
-  pokemons: {
-    id: number;
-    name: string;
-    weight: number;
-    height: number;
-  }[];
-  loading: boolean;
-  error: string | null;
+interface Pokemon {
+  id: number;
+  name: string;
+  weight: number;
+  height: number;
 }
 
-class Home extends React.Component<Props, State> {
-  state: State = {
-    pokemons: [],
-    loading: false,
-    error: null,
-  };
+const Home = (props: Props) => {
+  const [pokemons, setPokemons] = React.useState<Pokemon[]>([]);
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const [error, setError] = React.useState<string | null>(null);
 
-  async componentDidMount() {
-    this.setState({ loading: true });
-    try {
-      const { body: pokemons } = await makeGetRequest('/pokemon');
-      this.setState({ pokemons, loading: false });
-    } catch (error) {
-      this.setState({ error: error.toString(), loading: false });
-    }
-  }
+  React.useEffect(() => {
+    const fetchPokemons = async () => {
+      setLoading(true);
+      try {
+        const { body: recievedPokemons } = await makeGetRequest('/pokemon');
+        setPokemons(recievedPokemons);
+      } catch (error) {
+        setError(error.toString());
+      }
+      setLoading(false);
+    };
 
-  render() {
-    const { error, pokemons, loading } = this.state;
+    fetchPokemons();
+  }, []);
 
-    return (
-      <Style.Wrapper>
-        <Style.Title>Pokedex</Style.Title>
-        {loading ? (
-          <Style.Loader src={loader} alt="Loading..." />
-        ) : error ? (
-          <Style.Error>{error}</Style.Error>
-        ) : (
-          <Style.PokemonsWrapper>
-            {pokemons.length &&
-              pokemons.map(({ name, id, height, weight }) => (
-                <Style.Pokemon name={name} weight={weight} height={height} id={id} key={id} />
-              ))}
-          </Style.PokemonsWrapper>
-        )}
-      </Style.Wrapper>
-    );
-  }
-}
+  return (
+    <Style.Wrapper>
+      <Style.Title>Pokedex</Style.Title>
+      {loading ? (
+        <Style.Loader src={loader} alt="Loading..." />
+      ) : error ? (
+        <Style.Error>{error}</Style.Error>
+      ) : (
+        <Style.PokemonsWrapper>
+          {pokemons.length &&
+            pokemons.map(({ name, id, height, weight }) => (
+              <Style.Pokemon name={name} weight={weight} height={height} id={id} key={id} />
+            ))}
+        </Style.PokemonsWrapper>
+      )}
+    </Style.Wrapper>
+  );
+};
 
 export default Home;
