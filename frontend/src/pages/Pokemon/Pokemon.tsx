@@ -1,23 +1,16 @@
 import * as React from 'react';
 
-import Style from './Pokemon.style';
-import { makeGetRequest } from 'services/networking/request';
-import loader from '../../loader.svg';
 import { RouteComponentProps } from 'react-router';
+import Style from './Pokemon.style';
+import { PokemonType } from 'redux/Pokemon/types';
 
 interface RouteParams {
   id: string;
 }
 
 export interface Props extends RouteComponentProps<RouteParams> {
-  pokemon: Pokemon | null;
-}
-
-interface Pokemon {
-  id: number;
-  name: string;
-  weight: number;
-  height: number;
+  pokemon: PokemonType | null;
+  fetchPokemonSuccess: (pokemon: PokemonType) => void;
 }
 
 const pokeApiUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon';

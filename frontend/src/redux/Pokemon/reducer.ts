@@ -13,6 +13,11 @@ const reducer = (state: PokemonState = initialState, action: AnyAction) => {
         ...state,
         ...action.pokemons,
       };
+    case actionsTypes.fetchPokemonSuccess:
+      return {
+        ...state,
+        [action.pokemon.id]: action.pokemon,
+      };
     default:
       return state;
   }
