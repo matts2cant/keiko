@@ -4,11 +4,10 @@ import Style from './WithDataFetching.style';
 import loader from '../../loader.svg';
 
 const WithDataFetching = <P extends object>(
-  dataName: string,
   fetchFunction: (props: P) => any,
   shouldCallEffect: (props: P) => any[],
+  successFunction: (props: P, data: any) => void,
 ) => (BaseComponent: React.ComponentType<P>) => (props: P) => {
-  const [data, setData] = React.useState<any>(null);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string | null>(null);
 
@@ -18,7 +17,7 @@ const WithDataFetching = <P extends object>(
         setLoading(true);
         try {
           const { body } = await fetchFunction(props);
-          setData(body);
+          successFunction(props, body);
         } catch (error) {
           setError(error.toString());
         }
@@ -30,10 +29,6 @@ const WithDataFetching = <P extends object>(
     [...shouldCallEffect(props)],
   );
 
-  const customProps = {
-    [dataName]: data,
-  };
-
   return (
     <React.Fragment>
       {loading ? (
@@ -41,7 +36,7 @@ const WithDataFetching = <P extends object>(
       ) : error ? (
         <Style.Error>{error}</Style.Error>
       ) : (
-        data && <BaseComponent {...props} {...customProps} />
+        <BaseComponent {...props} />
       )}
     </React.Fragment>
   );
