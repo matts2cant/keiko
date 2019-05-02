@@ -1,11 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<App> <Route> should render the Root component 1`] = `
-<Root>
-  <routes />
-</Root>
-`;
-
 exports[`<App> should render correctly 1`] = `
 <Provider
   store={
@@ -400,6 +394,9 @@ exports[`<App> should render correctly 1`] = `
       }
     }
   >
+    <GlobalStyleComponent
+      suppressMultiMountWarning={false}
+    />
     <PersistGate
       loading={null}
       persistor={Object {}}
