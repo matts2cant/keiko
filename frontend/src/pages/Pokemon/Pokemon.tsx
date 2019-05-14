@@ -10,7 +10,7 @@ interface RouteParams {
 
 export interface Props extends RouteComponentProps<RouteParams> {
   pokemon: PokemonType | null;
-  fetchPokemonSuccess: (pokemon: PokemonType) => void;
+  fetchPokemonRequested: (id: string) => void;
 }
 
 const pokeApiUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon';
