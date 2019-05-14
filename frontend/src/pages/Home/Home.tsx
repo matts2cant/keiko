@@ -17,7 +17,7 @@ interface Pokemon {
 
 export interface Props extends RouteComponentProps<RouteParams> {
   pokemons: Pokemon[];
-  fetchPokemonsSuccess: (pokemons: PokemonMap) => void;
+  fetchPokemonsRequested: (page: string) => void;
 }
 
 const Home = (props: Props) => {
