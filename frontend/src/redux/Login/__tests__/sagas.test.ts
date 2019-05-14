@@ -19,7 +19,7 @@ describe('[Saga] Login redux', () => {
   describe('loginUser', () => {
     describe('when request is a success', () => {
       it('should call the success action when request is a success', async () => {
-        return expectSaga(loginUser, loginUserRequestAction)
+        await expectSaga(loginUser, loginUserRequestAction)
           .provide([[matchers.call.fn(login), token]])
           .put(loginUserSuccess({ token }))
           .run();
@@ -29,7 +29,7 @@ describe('[Saga] Login redux', () => {
     describe('when request fails', () => {
       it('should call the error action', async () => {
         const error = new Error();
-        return expectSaga(loginUser, loginUserRequestAction)
+        await expectSaga(loginUser, loginUserRequestAction)
           .provide([[matchers.call.fn(login), throwError(error)]])
           .put(loginUserError({ errorMessage: error.message }))
           .not.put.actionType(getType(loginUserSuccess))
