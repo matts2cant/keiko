@@ -3,6 +3,7 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import Style from './Pokemon.style';
 import { PokemonType } from 'redux/Pokemon/types';
+import { FormattedMessage } from 'react-intl';
 
 interface RouteParams {
   id: string;
@@ -34,9 +35,15 @@ const Pokemon = (props: Props) => {
               <img src={`${pokeApiUrl}/back/shiny/${id}.png`} />
             </div>
             <div>
-              <Style.Attribute>Height: {pokemon.height}</Style.Attribute>
-              <Style.Attribute>Weight: {pokemon.weight}</Style.Attribute>
-              <Style.Attribute>Id: {id}</Style.Attribute>
+              <Style.Attribute>
+                <FormattedMessage id="pokemon.height" />: {pokemon.height}
+              </Style.Attribute>
+              <Style.Attribute>
+                <FormattedMessage id="pokemon.weight" />: {pokemon.weight}
+              </Style.Attribute>
+              <Style.Attribute>
+                <FormattedMessage id="pokemon.id" />: {id}
+              </Style.Attribute>
             </div>
           </Style.PokemonWrapper>
         </React.Fragment>

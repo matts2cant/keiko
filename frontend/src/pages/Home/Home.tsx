@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import Style from './Home.style';
 import { RouteComponentProps } from 'react-router';
@@ -26,7 +27,9 @@ const Home = (props: Props) => {
 
   return (
     <Style.Wrapper>
-      <Style.Title>Pokedex</Style.Title>
+      <Style.Title>
+        <FormattedMessage id="home.pokedex" />
+      </Style.Title>
       <Style.PageLinkWrapper>
         {page > 1 && <Style.PageLink to={`/pokedex/${page - 1}`}>&lt;</Style.PageLink>}
         <Style.PageLink to={`/pokedex/${page + 1}`}>&gt;</Style.PageLink>
