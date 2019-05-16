@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import Style from './Pokemon.style';
 import turnIcon from '../../turn-ico.svg';
+import { FormattedMessage } from 'react-intl';
 
 interface Props {
   name: string;
@@ -37,9 +38,15 @@ const Pokemon = ({ name, id, weight, height }: Props) => {
       <Style.Name>{name}</Style.Name>
       <img src={getSpriteUrl(position, id)} />
       <Style.TurnIcon onClick={repositionPokemon} src={turnIcon} />
-      <Style.Attribute>Id: {id}</Style.Attribute>
-      <Style.Attribute>Weight: {weight / 10} kg</Style.Attribute>
-      <Style.Attribute>Height: {height * 10} cm</Style.Attribute>
+      <Style.Attribute>
+        <FormattedMessage id="pokemon.id" />: {id}
+      </Style.Attribute>
+      <Style.Attribute>
+        <FormattedMessage id="pokemon.weight" />: {weight / 10} kg
+      </Style.Attribute>
+      <Style.Attribute>
+        <FormattedMessage id="pokemon.height" />: {height * 10} cm
+      </Style.Attribute>
     </Style.Wrapper>
   );
 };
