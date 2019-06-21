@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from 'react';
 
 import Style from './WithDataFetching.style';
@@ -7,15 +9,13 @@ const WithDataFetching = <P extends object>(
   fetchFunction: (props: P) => any,
   shouldCallEffect: (props: P) => any[],
 ) => (BaseComponent: React.ComponentType<P>) => (props: P) => {
-  const [loading, setLoading] = React.useState<boolean>(false);
-  const [error, setError] = React.useState<string | null>(null);
+  const [loading] = React.useState<boolean>(false);
+  const [error] = React.useState<string | null>(null);
+  const callEffectCondition = shouldCallEffect(props);
 
-  React.useEffect(
-    () => {
-      fetchFunction(props);
-    },
-    [...shouldCallEffect(props)],
-  );
+  React.useEffect(() => {
+    fetchFunction(props);
+  }, [...callEffectCondition, props]);
 
   return (
     <React.Fragment>

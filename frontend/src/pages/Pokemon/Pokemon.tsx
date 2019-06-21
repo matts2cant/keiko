@@ -27,12 +27,12 @@ const Pokemon = (props: Props) => {
           <Style.Title>{pokemon.name}</Style.Title>
           <Style.PokemonWrapper>
             <div>
-              <img src={`${pokeApiUrl}/${id}.png`} />
-              <img src={`${pokeApiUrl}/back/${id}.png`} />
+              <img src={`${pokeApiUrl}/${id}.png`} alt={pokemon.name} />
+              <img src={`${pokeApiUrl}/back/${id}.png`} alt={pokemon.name} />
             </div>
             <div>
-              <img src={`${pokeApiUrl}/shiny/${id}.png`} />
-              <img src={`${pokeApiUrl}/back/shiny/${id}.png`} />
+              <img src={`${pokeApiUrl}/shiny/${id}.png`} alt={pokemon.name} />
+              <img src={`${pokeApiUrl}/back/shiny/${id}.png`} alt={pokemon.name} />
             </div>
             <div>
               <Style.Attribute>

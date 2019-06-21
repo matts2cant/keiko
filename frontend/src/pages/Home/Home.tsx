@@ -3,7 +3,6 @@ import { FormattedMessage } from 'react-intl';
 
 import Style from './Home.style';
 import { RouteComponentProps } from 'react-router';
-import { PokemonMap } from 'redux/Pokemon/types';
 
 interface RouteParams {
   page: string;
