@@ -11,11 +11,10 @@ const WithDataFetching = <P extends object>(
 ) => (BaseComponent: React.ComponentType<P>) => (props: P) => {
   const [loading] = React.useState<boolean>(false);
   const [error] = React.useState<string | null>(null);
-  const callEffectCondition = shouldCallEffect(props);
 
   React.useEffect(() => {
     fetchFunction(props);
-  }, [...callEffectCondition, props]);
+  }, shouldCallEffect(props));
 
   return (
     <React.Fragment>
