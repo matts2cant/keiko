@@ -3,20 +3,14 @@ import { FormattedMessage } from 'react-intl';
 
 import Style from './Home.style';
 import { RouteComponentProps } from 'react-router';
+import { PokemonType } from 'redux/Pokemon/types';
 
 interface RouteParams {
   page: string;
 }
 
-interface Pokemon {
-  id: number;
-  name: string;
-  weight: number;
-  height: number;
-}
-
 export interface Props extends RouteComponentProps<RouteParams> {
-  pokemons: Pokemon[];
+  pokemons: PokemonType[];
   fetchPokemonsRequested: (page: string) => void;
 }
 
@@ -35,8 +29,15 @@ const Home = (props: Props) => {
       </Style.PageLinkWrapper>
       <Style.PokemonsWrapper>
         {!!pokemons.length &&
-          pokemons.map(({ name, id, height, weight }) => (
-            <Style.Pokemon name={name} weight={weight} height={height} id={id} key={id} />
+          pokemons.map(({ name, title, id, height, weight }) => (
+            <Style.Pokemon
+              name={name}
+              title={title}
+              weight={weight}
+              height={height}
+              id={id}
+              key={id}
+            />
           ))}
       </Style.PokemonsWrapper>
     </Style.Wrapper>

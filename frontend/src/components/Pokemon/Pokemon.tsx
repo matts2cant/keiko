@@ -3,13 +3,9 @@ import * as React from 'react';
 import Style from './Pokemon.style';
 import turnIcon from '../../turn-ico.svg';
 import { FormattedMessage } from 'react-intl';
+import { PokemonType } from 'redux/Pokemon/types';
 
-interface Props {
-  name: string;
-  id: number;
-  height: number;
-  weight: number;
-}
+type Props = PokemonType;
 
 type PositionType = 'back' | 'front';
 
@@ -25,7 +21,7 @@ const getSpriteUrl = (position: PositionType, id: number) => {
   return spriteUrls[position];
 };
 
-const Pokemon = ({ name, id, weight, height }: Props) => {
+const Pokemon = ({ title, id, weight, height }: Props) => {
   const [position, setPosition] = React.useState<PositionType>('front');
 
   const repositionPokemon = (event: React.MouseEvent) => {
@@ -35,8 +31,8 @@ const Pokemon = ({ name, id, weight, height }: Props) => {
 
   return (
     <Style.Wrapper to={`/pokemon/${id}`}>
-      <Style.Name>{name}</Style.Name>
-      <img src={getSpriteUrl(position, id)} alt={name} />
+      <Style.Name>{title}</Style.Name>
+      <img src={getSpriteUrl(position, id)} alt={title} />
       <Style.TurnIcon onClick={repositionPokemon} src={turnIcon} />
       <Style.Attribute>
         <FormattedMessage id="pokemon.id" />: {id}
