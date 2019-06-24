@@ -1,28 +1,28 @@
-import * as React from 'react';
-import { FormattedMessage } from 'react-intl';
+import * as React from 'react';
+import { FormattedMessage } from 'react-intl';
 
-import Style from './Home.style';
-import { RouteComponentProps } from 'react-router';
+import Style from './Home.style';
+import { RouteComponentProps } from 'react-router';
 
 interface RouteParams {
-  page: string;
+  page: string;
 }
 
 interface Pokemon {
-  id: number;
-  name: string;
-  weight: number;
-  height: number;
+  id: number;
+  name: string;
+  weight: number;
+  height: number;
 }
 
 export interface Props extends RouteComponentProps<RouteParams> {
-  pokemons: Pokemon[];
-  fetchPokemonsRequested: (page: string) => void;
+  pokemons: Pokemon[];
+  fetchPokemonsRequested: (page: string) => void;
 }
 
 const Home = (props: Props) => {
-  const page = parseInt(props.match.params.page, 10);
-  const { pokemons } = props;
+  const page = parseInt(props.match.params.page, 10);
+  const { pokemons } = props;
 
   return (
     <Style.Wrapper>
@@ -30,8 +30,8 @@ const Home = (props: Props) => {
         <FormattedMessage id="home.pokedex" />
       </Style.Title>
       <Style.PageLinkWrapper>
-        {page > 1 && <Style.PageLink to={`/pokedex/${page - 1}`}>&lt;</Style.PageLink>}
-        <Style.PageLink to={`/pokedex/${page + 1}`}>&gt;</Style.PageLink>
+        {page > 1 && <Style.PageLink to={`/pokedex/${page - 1}`}>&lt;</Style.PageLink>}
+        <Style.PageLink to={`/pokedex/${page + 1}`}>&gt;</Style.PageLink>
       </Style.PageLinkWrapper>
       <Style.PokemonsWrapper>
         {!!pokemons.length &&
@@ -40,7 +40,7 @@ const Home = (props: Props) => {
           ))}
       </Style.PokemonsWrapper>
     </Style.Wrapper>
-  );
-};
+  );
+};
 
-export default Home;
+export default Home;
