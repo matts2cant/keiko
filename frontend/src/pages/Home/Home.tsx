@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
+import CheckIcon from '@material-ui/icons/Check';
 
 import Style from './Home.style';
 import { RouteComponentProps } from 'react-router';
@@ -28,6 +29,7 @@ const Home = (props: Props) => {
     <Style.Wrapper>
       <Style.Title>
         <FormattedMessage id="home.pokedex" />
+        <CheckIcon />
       </Style.Title>
       <Style.PageLinkWrapper>
         {page > 1 && <Style.PageLink to={`/pokedex/${page - 1}`}>&lt;</Style.PageLink>}
