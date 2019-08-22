@@ -12,3 +12,5 @@ Here is the list of the available Katas for this dojo:
 - [JS debug 2](./debug/javascript_2.md)
 - [JS debug 3](./debug/javascript_3.md)
 - [JS debug 4](./debug/javascript_4.md)
+- [JS debug 5](./debug/javascript_5.md)
+- [JS debug 6](./debug/javascript_6.md)
