@@ -3,6 +3,8 @@ import * as React from 'react';
 interface Props {
   name: string;
   id: number;
+  height: number;
+  weight: number;
 }
 
 class Pokemon extends React.Component<Props> {
@@ -17,6 +19,12 @@ class Pokemon extends React.Component<Props> {
         </td>
         <td>
           {this.props.name}
+        </td>
+        <td>
+          {this.props.height}
+        </td>
+        <td>
+          {this.props.weight}
         </td>
       </tr>
     );
