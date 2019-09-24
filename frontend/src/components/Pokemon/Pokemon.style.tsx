@@ -15,7 +15,7 @@ export default {
     text-align: center;
   `,
   Picture: styled.div`
-    height: 96px;
+    min-height: 96px;
     text-align: center;
   `,
   Info: styled.ul`

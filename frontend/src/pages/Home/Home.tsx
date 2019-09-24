@@ -42,10 +42,10 @@ class Home extends React.Component<{}, State> {
   render(): React.ReactNode {
     const pokemonComponents = this.state.pokemons.map(
       (data: { id: number; name: string; height: number; weight: number; }) =>
-        <Pokemon key={data.id.toString()} id={data.id} name={data.name} height={data.height} weight={data.weight} />
-    )
+        <Pokemon key={data.id.toString()} full={false} id={data.id} name={data.name} height={data.height} weight={data.weight} />
+    );
 
-    const loader = <img src={"loader.svg"} alt={"loader"}/>;
+    const loader = <img src={"/loader.svg"} alt={"loader"}/>;
 
     return (
       <Style.Intro>
