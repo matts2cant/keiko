@@ -7,6 +7,7 @@ import Style from './Home.style';
 
 interface State {
   loading: boolean;
+  error: boolean;
   pokemons: Array<{
     id: number;
     name: string;
@@ -18,7 +19,7 @@ interface State {
 class Home extends React.Component<{}, State> {
   constructor(props: Readonly<{}>) {
     super(props);
-    this.state = {loading: true, pokemons: []};
+    this.state = {loading: true, error: false, pokemons: []};
   }
 
   componentDidMount(): void {
@@ -26,8 +27,15 @@ class Home extends React.Component<{}, State> {
       .then((response) => {
         this.setState({
           loading: false,
+          error: false,
           pokemons: response.body,
         })
+      }).catch((error) => {
+      this.setState({
+        loading: false,
+        error: true,
+        pokemons: [],
+      })
       });
   }
 
@@ -43,8 +51,9 @@ class Home extends React.Component<{}, State> {
       <Style.Intro>
         <Style.Title><FormattedMessage id="pokemon.pokedex" /></Style.Title>
         <Style.Container>
-        {this.state.loading && loader}
-        {!this.state.loading && pokemonComponents}
+          {this.state.loading && loader}
+          {!this.state.loading && pokemonComponents}
+          {this.state.error && <Style.Error><FormattedMessage id="pokemon.error" /></Style.Error>}
         </Style.Container>
       </Style.Intro>
     );
