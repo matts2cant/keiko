@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import Pokemon from 'components/Pokemon';
+import {FormattedMessage} from 'react-intl';
 import {makeGetRequest} from "services/networking/request";
 import Style from './Home.style';
 
@@ -8,6 +9,8 @@ interface State {
   pokemons: Array<{
     id: number;
     name: string;
+    height: number;
+    weight: number;
   }>;
 }
 
@@ -16,7 +19,7 @@ class Home extends React.Component<{}, State> {
     makeGetRequest("/pokemon")
       .then((response) => {
         this.setState({
-          pokemons: response.body.map((data: { id: number; name: string; }) => <Pokemon key={data.id.toString()} name={data.name} id={data.id} />)
+          pokemons: response.body.map((data: { id: number; name: string; height: number; weight: number; }) => <Pokemon key={data.id.toString()} id={data.id} name={data.name} height={data.height} weight={data.weight} />)
         })
       });
   }
@@ -24,12 +27,14 @@ class Home extends React.Component<{}, State> {
   render(): React.ReactNode {
     return (
       <Style.Intro>
-        <div>Bienvenue sur ton futur pokédex !</div>
+        <div><FormattedMessage id="pokemon.welcome" /></div>
         <table>
           <tr>
             <th>#</th>
-            <th>Image</th>
-            <th>Name</th>
+            <th></th>
+            <th><FormattedMessage id="pokemon.name" /></th>
+            <th><FormattedMessage id="pokemon.height" /></th>
+            <th><FormattedMessage id="pokemon.weight" /></th>
           </tr>
           {this.state ? this.state.pokemons : ""}
         </table>
