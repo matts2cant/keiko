@@ -1,43 +1,51 @@
 import * as React from 'react';
 
+import Pokemon from 'components/Pokemon';
+import {FormattedMessage} from 'react-intl';
+import {makeGetRequest} from "services/networking/request";
 import Style from './Home.style';
 
-class Home extends React.Component {
+interface State {
+  loading: boolean;
+  pokemons: Array<{
+    id: number;
+    name: string;
+    height: number;
+    weight: number;
+  }>;
+}
+
+class Home extends React.Component<{}, State> {
+  constructor(props: Readonly<{}>) {
+    super(props);
+    this.state = {loading: true, pokemons: []};
+  }
+
+  componentDidMount(): void {
+    makeGetRequest("/pokemon")
+      .then((response) => {
+        this.setState({
+          loading: false,
+          pokemons: response.body,
+        })
+      });
+  }
+
   render(): React.ReactNode {
-    const pokemon = 'Carapuce';
+    const pokemonComponents = this.state.pokemons.map(
+      (data: { id: number; name: string; height: number; weight: number; }) =>
+        <Pokemon key={data.id.toString()} id={data.id} name={data.name} height={data.height} weight={data.weight} />
+    )
+
+    const loader = <img src={"loader.svg"} alt={"loader"}/>;
 
     return (
       <Style.Intro>
-        <div>Bienvenue sur ton futur pokédex !</div>
-        <div>
-          Tu vas pouvoir apprendre tout ce qu'il faut sur React, Redux et Symfony, et attraper des
-          pokemons !
-        </div>
-        <div>Commence par créer ton premier pokemon: {pokemon}</div>
-        <table>
-          <tr>
-            <th>
-              #
-            </th>
-            <th>
-              Image
-            </th>
-            <th>
-              Name
-            </th>
-          </tr>
-          <tr>
-            <td>
-              7
-            </td>
-            <td>
-              <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png" alt="Carapuce"/>
-            </td>
-            <td>
-              Carapuce
-            </td>
-          </tr>
-        </table>
+        <Style.Title><FormattedMessage id="pokemon.pokedex" /></Style.Title>
+        <Style.Container>
+        {this.state.loading && loader}
+        {!this.state.loading && pokemonComponents}
+        </Style.Container>
       </Style.Intro>
     );
   }

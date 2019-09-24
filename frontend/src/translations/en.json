@@ -13,5 +13,13 @@
     "back": "Back",
     "api-to-translate-example": "This message is translated using directly react-intl API",
     "add-github-username": "Enter a github username"
+  },
+  "pokemon": {
+    "pokedex": "Pokedex",
+    "welcome": "Welcome in your pokedex !",
+    "id": "Id",
+    "name": "Name",
+    "height": "Height",
+    "weight": "Weight"
   }
 }
