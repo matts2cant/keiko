@@ -27,17 +27,10 @@ class Home extends React.Component<{}, State> {
   render(): React.ReactNode {
     return (
       <Style.Intro>
-        <div><FormattedMessage id="pokemon.welcome" /></div>
-        <table>
-          <tr>
-            <th>#</th>
-            <th></th>
-            <th><FormattedMessage id="pokemon.name" /></th>
-            <th><FormattedMessage id="pokemon.height" /></th>
-            <th><FormattedMessage id="pokemon.weight" /></th>
-          </tr>
-          {this.state ? this.state.pokemons : ""}
-        </table>
+        <Style.Title><FormattedMessage id="pokemon.pokedex" /></Style.Title>
+        <Style.Container>
+        {this.state ? this.state.pokemons : ""}
+        </Style.Container>
       </Style.Intro>
     );
   }
