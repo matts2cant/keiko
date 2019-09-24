@@ -16,4 +16,9 @@ export default {
     flex-wrap: wrap;
     justify-content: center;
   `,
+  Error: styled.div`
+    display: flex;
+    color: red;
+    margin-top: 64px;
+  `,
 };
