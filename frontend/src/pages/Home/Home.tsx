@@ -1,9 +1,26 @@
 import * as React from 'react';
 
 import Pokemon from 'components/Pokemon';
+import {makeGetRequest} from "services/networking/request";
 import Style from './Home.style';
 
-class Home extends React.Component {
+interface State {
+  pokemons: Array<{
+    id: number;
+    name: string;
+  }>;
+}
+
+class Home extends React.Component<{}, State> {
+  componentDidMount(): void {
+    makeGetRequest("/pokemon")
+      .then((response) => {
+        this.setState({
+          pokemons: response.body.map((data: { id: number; name: string; }) => <Pokemon key={data.id.toString()} name={data.name} id={data.id} />)
+        })
+      });
+  }
+
   render(): React.ReactNode {
     return (
       <Style.Intro>
@@ -14,9 +31,7 @@ class Home extends React.Component {
             <th>Image</th>
             <th>Name</th>
           </tr>
-          <Pokemon name="Carapuce" id={7} />
-          <Pokemon name="Carabaffe" id={8} />
-          <Pokemon name="Tortank" id={9} />
+          {this.state ? this.state.pokemons : ""}
         </table>
       </Style.Intro>
     );
