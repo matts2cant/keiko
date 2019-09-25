@@ -3,6 +3,7 @@ import * as React from 'react';
 import Pokemon from 'components/Pokemon';
 import {FormattedMessage} from 'react-intl';
 import {RouteComponentProps} from "react-router";
+import {PokemonType} from 'redux/Pokemon/types'
 import {makeGetRequest} from "services/networking/request";
 import HomeStyle from './../Home/Home.style';
 import Style from './Details.style';
@@ -10,12 +11,7 @@ import Style from './Details.style';
 interface State {
   loading: boolean,
   error: boolean,
-  pokemon: {
-    id: number;
-    name: string;
-    height: number;
-    weight: number;
-  };
+  pokemon: PokemonType;
 }
 
 interface RouteParams {

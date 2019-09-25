@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useState } from 'react';
 import {FormattedMessage} from "react-intl";
-import Style from './Pokemon.style';
 import {Link} from "react-router-dom";
+import Style from './Pokemon.style';
 
 interface Props {
   detailedView: boolean;
