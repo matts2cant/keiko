@@ -23,9 +23,9 @@ function Pokemon(props: Props) {
             {props.name}
           </Link>
         </Style.Title>
-        <Style.FlipButton>
+        {!props.detailedView && <Style.FlipButton>
           <img onClick={flipFunc} src="/flip.svg" alt="Flip pokemon"/>
-        </Style.FlipButton>
+        </Style.FlipButton>}
         {!props.detailedView && <Style.Picture>
           {!flipped && <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${props.id}.png`} alt={props.name}/>}
           {flipped && <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${props.id}.png`} alt={props.name}/>}
@@ -39,7 +39,7 @@ function Pokemon(props: Props) {
 
         <Style.Info>
           <li><FormattedMessage id="pokemon.id" />: {props.id}</li>
-          <li><FormattedMessage id="pokemon.height" />: {props.height} cm</li>
+          <li><FormattedMessage id="pokemon.height" />: {props.height * 10} cm</li>
           <li><FormattedMessage id="pokemon.weight" />: {props.weight / 10} kg</li>
         </Style.Info>
       </Style.PokeBox>

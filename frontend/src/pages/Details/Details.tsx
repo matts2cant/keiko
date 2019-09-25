@@ -60,7 +60,7 @@ class Details extends React.Component<RouteComponentProps<RouteParams>, State> {
             <HomeStyle.Title><FormattedMessage id="pokemon.pokedex" /></HomeStyle.Title>
             <HomeStyle.Container>
               {this.state.loading && loader}
-              {!this.state.loading && <Pokemon detailedView={true} id={this.state.pokemon.id} name={this.state.pokemon.name} height={this.state.pokemon.height} weight={this.state.pokemon.weight}/>}
+              {!this.state.loading && <Pokemon {...this.state.pokemon} detailedView={true} />}
               {this.state.error && <HomeStyle.Error><FormattedMessage id="pokemon.error" /></HomeStyle.Error>}
             </HomeStyle.Container>
         </HomeStyle.Intro>

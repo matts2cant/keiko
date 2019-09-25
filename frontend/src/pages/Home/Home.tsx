@@ -67,7 +67,7 @@ class Home extends React.Component<RouteComponentProps<RouteParams>, State> {
 
   render(): React.ReactNode {
     const pokemonComponents = this.state.pokemons.map((data: PokemonData) =>
-      <Pokemon key={data.id.toString()} detailedView={false} id={data.id} name={data.name} height={data.height} weight={data.weight} />
+      <Pokemon {...data} key={data.id.toString()} detailedView={false} />
     );
 
     const loader = <img src={"/loader.svg"} alt={"loader"}/>;
