@@ -21,4 +21,10 @@ export default {
     color: red;
     margin-top: 64px;
   `,
+  Paginator: styled.div`
+    font-size: 32px;
+    text-decoration: none;
+    color: black;
+    margin: 64px;
+  `,
 };
