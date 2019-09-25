@@ -4,3 +4,5 @@ export interface PokemonType {
   height: number;
   weight: number;
 }
+
+export type PokemonStoreType = Readonly<Record<number, PokemonType>>;
