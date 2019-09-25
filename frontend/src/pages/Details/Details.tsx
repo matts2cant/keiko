@@ -17,12 +17,13 @@ interface State {
     weight: number;
   };
 }
-interface Params {
+
+interface RouteParams {
   id: string;
 }
 
-class Details extends React.Component<RouteComponentProps<Params>, State> {
-  constructor(props: RouteComponentProps<Params>) {
+class Details extends React.Component<RouteComponentProps<RouteParams>, State> {
+  constructor(props: RouteComponentProps<RouteParams>) {
     super(props);
     this.state = {loading: true, error: false, pokemon: { id: 0, name: "", height: 0, weight: 0}};
   }
@@ -46,7 +47,8 @@ class Details extends React.Component<RouteComponentProps<Params>, State> {
         loading: false,
         error: true,
         pokemon: { id: 0, name: "", height: 0, weight: 0},
-      })
+      });
+      console.error(`An error occurred in the Details component: ${e}`);
     }
   }
 
@@ -58,7 +60,7 @@ class Details extends React.Component<RouteComponentProps<Params>, State> {
             <HomeStyle.Title><FormattedMessage id="pokemon.pokedex" /></HomeStyle.Title>
             <HomeStyle.Container>
               {this.state.loading && loader}
-              {!this.state.loading && <Pokemon full={true} id={this.state.pokemon.id} name={this.state.pokemon.name} height={this.state.pokemon.height} weight={this.state.pokemon.weight}/>}
+              {!this.state.loading && <Pokemon detailedView={true} id={this.state.pokemon.id} name={this.state.pokemon.name} height={this.state.pokemon.height} weight={this.state.pokemon.weight}/>}
               {this.state.error && <HomeStyle.Error><FormattedMessage id="pokemon.error" /></HomeStyle.Error>}
             </HomeStyle.Container>
         </HomeStyle.Intro>

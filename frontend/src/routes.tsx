@@ -8,7 +8,9 @@ const routes = () => (
   <Suspense fallback={<div>Loading...</div>}>
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route exact path="/pokemon/:id" component={Details} />
+      <Route exact path="/pokedex" component={Home} />
+      <Route path="/pokedex/:page" component={Home} />
+      <Route path="/pokemon/:id" component={Details} />
     </Switch>
   </Suspense>
 );
