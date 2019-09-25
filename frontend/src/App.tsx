@@ -27,8 +27,8 @@ const RootComponentWithRoutes: React.FunctionComponent = () => (
 const CustomFont = createGlobalStyle`
   @font-face {
     font-family: 'pokemon_gb';
-    src: url('font/pokemon_gb-webfont.woff2') format('woff2'),
-         url('font/pokemon_gb-webfont.woff') format('woff');
+    src: url('/font/pokemon_gb-webfont.woff2') format('woff2'),
+         url('/font/pokemon_gb-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
   }
