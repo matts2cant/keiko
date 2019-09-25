@@ -25,6 +25,6 @@ export default {
     font-size: 32px;
     text-decoration: none;
     color: black;
-    margin: 64px;
+    margin: 24px;
   `,
 };
