@@ -5,43 +5,41 @@ import {FormattedMessage} from 'react-intl';
 import {RouteComponentProps} from "react-router";
 import {Link} from "react-router-dom";
 import {withRouter} from 'react-router-dom'
+import {PokemonType} from 'redux/Pokemon/types'
 import {makeGetRequest} from "services/networking/request";
 import Style from './Home.style';
-
-interface PokemonData {
-  id: number;
-  name: string;
-  height: number;
-  weight: number;
-}
 
 interface State {
   page: number;
   loading: boolean;
   error: boolean;
-  pokemons: PokemonData[];
+  pokemons: PokemonType[];
+}
+
+interface Props<T> extends RouteComponentProps<T> {
+  pokemons: PokemonType[];
 }
 
 interface RouteParams {
   page: string;
 }
 
-class Home extends React.Component<RouteComponentProps<RouteParams>, State> {
-  constructor(props: RouteComponentProps<RouteParams>) {
+class Home extends React.Component<Props<RouteParams>, State> {
+  constructor(props: Props<RouteParams>) {
     super(props);
-    this.state = {page: 1, loading: true, error: false, pokemons: []};
+    this.state = {page: 1, loading: false, error: false, pokemons: props.pokemons};
   }
 
   async componentDidMount() {
     const page = Number(this.props.match.params.page || 1);
-    await this.updateData(page);
+    // await this.updateData(page);
   }
 
   async componentDidUpdate(prevProps: RouteComponentProps<RouteParams>, prevState: State) {
     const prevPage = Number(prevProps.match.params.page || 1);
     const page = Number(this.props.match.params.page || 1);
     if (prevPage !== page) {
-      await this.updateData(page);
+      // await this.updateData(page);
     }
   }
 
@@ -66,7 +64,7 @@ class Home extends React.Component<RouteComponentProps<RouteParams>, State> {
   }
 
   render(): React.ReactNode {
-    const pokemonComponents = this.state.pokemons.map((data: PokemonData) =>
+    const pokemonComponents = this.state.pokemons.map((data: PokemonType) =>
       <Pokemon {...data} key={data.id.toString()} detailedView={false} />
     );
 
