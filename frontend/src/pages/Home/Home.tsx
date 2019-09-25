@@ -33,30 +33,27 @@ class Home extends React.Component<Props<RouteParams>, State> {
 
   async componentDidMount() {
     const page = Number(this.props.match.params.page || 1);
-    const data = await this.updateData(page);
-    this.props.fetchPokemonsSuccess({
-      pokemons: normalize(data),
-    });
+    this.updateData(page);
   }
 
   async componentDidUpdate(prevProps: RouteComponentProps<RouteParams>, prevState: State) {
     const prevPage = Number(prevProps.match.params.page || 1);
     const page = Number(this.props.match.params.page || 1);
     if (prevPage !== page) {
-      const data = await this.updateData(page);
-      this.props.fetchPokemonsSuccess({
-        pokemons: normalize(data),
-      });
+      await this.updateData(page);
+
     }
   }
 
   async updateData(page: number) {
     try {
       const response = await makeGetRequest("/pokemon?page=" + page);
+      this.props.fetchPokemonsSuccess({
+        pokemons: normalize(response.body),
+      });
       return response.body;
     } catch (e) {
       console.error(`An error occurred in the Home component: ${e}`);
-      return {};
     }
   }
 
