@@ -8,16 +8,18 @@ import {withRouter} from 'react-router-dom'
 import {makeGetRequest} from "services/networking/request";
 import Style from './Home.style';
 
+interface PokemonData {
+  id: number;
+  name: string;
+  height: number;
+  weight: number;
+}
+
 interface State {
   page: number;
   loading: boolean;
   error: boolean;
-  pokemons: Array<{
-    id: number;
-    name: string;
-    height: number;
-    weight: number;
-  }>;
+  pokemons: PokemonData[];
 }
 
 interface RouteParams {
@@ -64,9 +66,8 @@ class Home extends React.Component<RouteComponentProps<RouteParams>, State> {
   }
 
   render(): React.ReactNode {
-    const pokemonComponents = this.state.pokemons.map(
-      (data: { id: number; name: string; height: number; weight: number; }) =>
-        <Pokemon key={data.id.toString()} detailedView={false} id={data.id} name={data.name} height={data.height} weight={data.weight} />
+    const pokemonComponents = this.state.pokemons.map((data: PokemonData) =>
+      <Pokemon key={data.id.toString()} detailedView={false} id={data.id} name={data.name} height={data.height} weight={data.weight} />
     );
 
     const loader = <img src={"/loader.svg"} alt={"loader"}/>;
@@ -75,16 +76,16 @@ class Home extends React.Component<RouteComponentProps<RouteParams>, State> {
     return (
       <Style.Intro>
         <Style.Title><FormattedMessage id="pokemon.pokedex" /></Style.Title>
-        <Style.Container>
-          {this.state.loading && loader}
-          {!this.state.loading && pokemonComponents}
-          {this.state.error && error}
-        </Style.Container>
         <Style.Paginator>
           <Link to={`/pokedex/${this.state.page - 1}`}>&laquo;</Link>
           {this.state.page}
           <Link to={`/pokedex/${this.state.page + 1}`}>&raquo;</Link>
         </Style.Paginator>
+        <Style.Container>
+          {this.state.loading && loader}
+          {!this.state.loading && pokemonComponents}
+          {this.state.error && error}
+        </Style.Container>
       </Style.Intro>
     );
   }
