@@ -14,7 +14,7 @@ interface Props {
 
 function Pokemon(props: Props) {
   const [flipped, setFlipped] = useState(false);
-  const flipFunc = () => setFlipped(!flipped);
+  const toggleFlip = () => setFlipped(!flipped);
 
   return (
       <Style.PokeBox>
@@ -24,7 +24,7 @@ function Pokemon(props: Props) {
           </Link>
         </Style.Title>
         {!props.detailedView && <Style.FlipButton>
-          <img onClick={flipFunc} src="/flip.svg" alt="Flip pokemon"/>
+          <img onClick={toggleFlip} src="/flip.svg" alt="Flip pokemon"/>
         </Style.FlipButton>}
         {!props.detailedView && <Style.Picture>
           {!flipped && <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${props.id}.png`} alt={props.name}/>}
