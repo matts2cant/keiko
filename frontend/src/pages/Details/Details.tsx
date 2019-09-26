@@ -11,39 +11,45 @@ import Style from './Details.style';
 interface State {
   loading: boolean,
   error: boolean,
-  pokemon: PokemonType;
+}
+
+interface Props<T> extends RouteComponentProps<T> {
+  pokemon?: PokemonType;
+  fetchPokemonSuccess: any;
+  fetchPokemonsSuccess: any;
 }
 
 interface RouteParams {
   id: string;
 }
 
-class Details extends React.Component<RouteComponentProps<RouteParams>, State> {
-  constructor(props: RouteComponentProps<RouteParams>) {
+class Details extends React.Component<Props<RouteParams>, State> {
+  constructor(props: Props<RouteParams>) {
     super(props);
-    this.state = {loading: true, error: false, pokemon: { id: 0, name: "", height: 0, weight: 0}};
+    this.state = {loading: true, error: false};
   }
 
   async componentDidMount() {
+    const id = this.props.match.params.id;
+    this.fetchPokemonData(Number(id));
+  }
+
+  async componentDidUpdate(prevProps: Props<RouteParams>, prevState: State) {
+    const prevId = prevProps.match.params.id;
+    const id = this.props.match.params.id;
+
+    if (prevId !== id) {
+      this.fetchPokemonData(Number(id));
+    }
+  }
+
+  async fetchPokemonData(id: number) {
     try {
-      const id = this.props.match.params.id;
       const response = await makeGetRequest("/pokemon/" + id);
-      this.setState({
-        loading: false,
-        error: false,
-        pokemon: {
-          id: response.body.id,
-          name: response.body.name,
-          height: response.body.height,
-          weight: response.body.weight,
-        },
+      this.props.fetchPokemonSuccess({
+        pokemon: response.body,
       });
     } catch (e) {
-      this.setState({
-        loading: false,
-        error: true,
-        pokemon: { id: 0, name: "", height: 0, weight: 0},
-      });
       console.error(`An error occurred in the Details component: ${e}`);
     }
   }
@@ -55,9 +61,8 @@ class Details extends React.Component<RouteComponentProps<RouteParams>, State> {
         <HomeStyle.Intro>
             <HomeStyle.Title><FormattedMessage id="pokemon.pokedex" /></HomeStyle.Title>
             <HomeStyle.Container>
-              {this.state.loading && loader}
-              {!this.state.loading && <Pokemon {...this.state.pokemon} detailedView={true} />}
-              {this.state.error && <HomeStyle.Error><FormattedMessage id="pokemon.error" /></HomeStyle.Error>}
+              {!this.props.pokemon && loader}
+              {this.props.pokemon && <Pokemon {...this.props.pokemon} detailedView={true} />}
             </HomeStyle.Container>
         </HomeStyle.Intro>
     );

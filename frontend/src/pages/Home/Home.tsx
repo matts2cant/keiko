@@ -17,6 +17,7 @@ interface State {
 
 interface Props<T> extends RouteComponentProps<T> {
   pokemons: PokemonType[];
+  fetchPokemonSuccess: any;
   fetchPokemonsSuccess: any;
 }
 
@@ -55,7 +56,6 @@ class Home extends React.Component<Props<RouteParams>, State> {
   }
 
   render(): React.ReactNode {
-    debugger;
     const pokemonComponents = this.props.pokemons.map((data: PokemonType) =>
       <Pokemon {...data} key={data.id.toString()} detailedView={false} />
     );
