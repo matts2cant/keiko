@@ -1,54 +1,73 @@
 import * as React from 'react';
 
 import Pokemon from 'components/Pokemon';
+import {useEffect, useState} from 'react';
 import {FormattedMessage} from 'react-intl';
+import {RouteComponentProps} from "react-router";
+import {Link} from "react-router-dom";
+import {PokemonType} from 'redux/Pokemon/types'
 import {makeGetRequest} from "services/networking/request";
+import {normalize} from "services/PokemonNormalizer";
 import Style from './Home.style';
 
-interface State {
-  loading: boolean;
-  pokemons: Array<{
-    id: number;
-    name: string;
-    height: number;
-    weight: number;
-  }>;
+interface Props<T> extends RouteComponentProps<T> {
+  pokemons: PokemonType[];
+  fetchPokemonSuccess: any;
+  fetchPokemonsSuccess: any;
 }
 
-class Home extends React.Component<{}, State> {
-  constructor(props: Readonly<{}>) {
-    super(props);
-    this.state = {loading: true, pokemons: []};
-  }
+interface RouteParams {
+  page: string;
+}
 
-  componentDidMount(): void {
-    makeGetRequest("/pokemon")
-      .then((response) => {
-        this.setState({
-          loading: false,
-          pokemons: response.body,
-        })
-      });
-  }
+function Home(props: Props<RouteParams>) {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-  render(): React.ReactNode {
-    const pokemonComponents = this.state.pokemons.map(
-      (data: { id: number; name: string; height: number; weight: number; }) =>
-        <Pokemon key={data.id.toString()} id={data.id} name={data.name} height={data.height} weight={data.weight} />
-    )
+  useEffect(() => {
+    const fetchData  = async () => {
+      try {
+        setLoading(true);
+        setError(false);
+        const response = await makeGetRequest("/pokemon?page=" + Number(props.match.params.page || 1));
+        props.fetchPokemonsSuccess({
+          pokemons: normalize(response.body),
+        });
+      } catch (e) {
+        setError(true);
+        console.error(`An error occurred in the Home component: ${e}`);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [props.match.params.page]);
 
-    const loader = <img src={"loader.svg"} alt={"loader"}/>;
+  const pokemonComponents = props.pokemons.map((data: PokemonType) =>
+    <Pokemon {...data} key={data.id.toString()} detailedView={false} />
+  );
 
-    return (
-      <Style.Intro>
-        <Style.Title><FormattedMessage id="pokemon.pokedex" /></Style.Title>
-        <Style.Container>
-        {this.state.loading && loader}
-        {!this.state.loading && pokemonComponents}
-        </Style.Container>
-      </Style.Intro>
-    );
-  }
+  const loader = <img src={"/loader.svg"} alt={"loader"}/>;
+  const errorMsg = <Style.Error><FormattedMessage id="pokemon.error" /></Style.Error>;
+
+  const page = Number(props.match.params.page || 1);
+
+  return (
+    <Style.Intro>
+      <Style.Title><FormattedMessage id="pokemon.pokedex" /></Style.Title>
+      <Style.Paginator>
+        {page > 1 && <Link to={`/pokedex/${page - 1}`}>&laquo;</Link>}
+        {page}
+        {page < 6 && <Link to={`/pokedex/${page + 1}`}>&raquo;</Link>}
+      </Style.Paginator>
+      <Style.Container>
+        {error && errorMsg}
+        {loading && loader}
+        {!loading && pokemonComponents}
+      </Style.Container>
+    </Style.Intro>
+  );
+
 }
 
 export default Home;

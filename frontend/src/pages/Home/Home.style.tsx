@@ -16,4 +16,15 @@ export default {
     flex-wrap: wrap;
     justify-content: center;
   `,
+  Error: styled.div`
+    display: flex;
+    color: red;
+    margin-top: 64px;
+  `,
+  Paginator: styled.div`
+    font-size: 32px;
+    text-decoration: none;
+    color: black;
+    margin: 24px;
+  `,
 };

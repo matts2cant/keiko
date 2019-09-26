@@ -16,6 +16,7 @@
   },
   "pokemon": {
     "pokedex": "Pokédex",
+    "error": "Une erreur est survenue pendant le chargement de la page.",
     "welcome": "Bienvenue dans ton pokédex !",
     "id": "Id",
     "name": "Nom",
