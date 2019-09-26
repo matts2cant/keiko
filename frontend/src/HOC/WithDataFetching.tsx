@@ -10,7 +10,6 @@ const WithDataFetching = <P extends object>(
   fetchFunction: (props: P) => any,
   shouldCallEffect: (props: P) => any[],
 ) => (BaseComponent: React.ComponentType<P>) => (props: P) => {
-  const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -19,8 +18,7 @@ const WithDataFetching = <P extends object>(
       const fetchData = async () => {
         setLoading(true);
         try {
-          const { body } = await fetchFunction(props);
-          setData(body);
+          await fetchFunction(props);
         } catch (error) {
           setError(error.toString());
         }
@@ -32,9 +30,9 @@ const WithDataFetching = <P extends object>(
     [...shouldCallEffect(props)],
   );
 
-  const customProps = {
-    [dataName]: data,
-  };
+//  const customProps = {
+//    [dataName]: data,
+//  };
 
   return (
     <React.Fragment>
@@ -43,7 +41,7 @@ const WithDataFetching = <P extends object>(
       ) : error ? (
         <Style.Error>{error}</Style.Error>
       ) : (
-        data && <BaseComponent {...props} {...customProps} />
+        <BaseComponent {...props}/>
       )}
     </React.Fragment>
   );
