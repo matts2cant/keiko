@@ -1,3 +1,4 @@
+import Animate from "components/HOC/Animate";
 import React from 'react';
 
 const Logo = () => (
@@ -8,4 +9,4 @@ const Logo = () => (
   />
 );
 
-export default Logo;
+export default Animate('wobble')(Logo);

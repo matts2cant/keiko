@@ -1,8 +1,15 @@
 import styled from 'styled-components';
-import {tadaAnimation} from "../../styles";
+import {tadaAnimation, wobbleAnimation} from "../../styles";
 
 export default {
-  Wrapper: styled.div`
-    ${tadaAnimation}
+  Tada: styled.div`
+    &:hover {
+      ${tadaAnimation}
+    }
+  `,
+  Wobble: styled.div`
+    &:hover {
+      ${wobbleAnimation}
+    }
   `,
 };

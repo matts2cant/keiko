@@ -6,7 +6,6 @@ import {RootState} from "redux/types";
 import {makeGetRequest} from "services/networking/request";
 import Home, {Props} from "../Details/Details";
 import Details from './Details';
-import {normalize} from "services/PokemonNormalizer";
 
 function mapStateToProps(state: RootState) {
   const pokemon = getDetailedPokemon(state);
@@ -23,5 +22,4 @@ const dataFetchingDetails = withDataFetching<Props>(
   },
   (props: Props) => [props.match.params.id],
 )(Details);
-
 export default connect(mapStateToProps, Actions)(dataFetchingDetails);

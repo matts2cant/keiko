@@ -3,8 +3,9 @@ import { useState } from 'react';
 import {FormattedMessage} from "react-intl";
 import {Link} from "react-router-dom";
 import Style from './Pokemon.style';
+import Animate from "components/HOC/Animate";
 
-interface Props {
+export interface Props {
   detailedView: boolean;
   name: string;
   id: number;
@@ -46,4 +47,4 @@ function Pokemon(props: Props) {
   );
 }
 
-export default Pokemon;
+export default Animate<Props>('tada')(Pokemon);

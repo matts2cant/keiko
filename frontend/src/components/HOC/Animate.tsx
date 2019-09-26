@@ -1,16 +1,24 @@
 import * as React from 'react';
 
-import {useEffect, useState} from 'react'
+import {Component, useEffect, useState} from 'react'
 import Style from './Animate.style';
 
-/* eslint-disable react-hooks/rules-of-hooks */
-
-const WithAnimation = <P extends object>() => (BaseComponent: React.ComponentType<P>) => (props: P) => {
-  return (
-    <Style.Wrapper>
+const Animate = <P extends object>(animation: 'tada' | 'wobble') => (
+  BaseComponent: React.ComponentType<P>,
+) => (props: P) => {
+  if (animation === 'tada') {
+    return (
+      <Style.Tada>
         <BaseComponent {...props}/>
-    </Style.Wrapper>
-  );
+      </Style.Tada>
+    );
+  } else {
+    return (
+      <Style.Wobble>
+        <BaseComponent {...props}/>
+      </Style.Wobble>
+    );
+  }
 };
 
-export default WithAnimation;
+export default Animate;
