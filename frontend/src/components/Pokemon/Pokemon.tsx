@@ -27,14 +27,14 @@ function Pokemon(props: Props) {
           <img onClick={toggleFlip} src="/flip.svg" alt="Flip pokemon"/>
         </Style.FlipButton>}
         {!props.detailedView && <Style.Picture>
-          {!flipped && <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${props.id}.png`} alt={props.name}/>}
-          {flipped && <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${props.id}.png`} alt={props.name}/>}
+          {!flipped && <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${props.id}.png`} alt={props.name + " Front"}/>}
+          {flipped && <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${props.id}.png`} alt={props.name + " Back"}/>}
         </Style.Picture>}
         {props.detailedView && <Style.Picture>
-          <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${props.id}.png`} alt={props.name}/>
-          <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${props.id}.png`} alt={props.name}/>
-          <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${props.id}.png`} alt={props.name}/>
-          <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/${props.id}.png`} alt={props.name}/>
+          <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${props.id}.png`} alt={props.name + " Front"}/>
+          <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${props.id}.png`} alt={props.name + " Back"}/>
+          <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${props.id}.png`} alt={props.name + " Shiny Front"}/>
+          <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/${props.id}.png`} alt={props.name + " Shiny Back"}/>
         </Style.Picture>}
 
         <Style.Info>
