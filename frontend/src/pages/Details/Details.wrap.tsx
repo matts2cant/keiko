@@ -15,9 +15,8 @@ function mapStateToProps(state: RootState) {
 const dataFetchingDetails = withDataFetching<Props>(
   'pokemon',
   async (props: Props) => {
-    const response = await makeGetRequest('/pokemon/' + props.match.params.id);
-    props.fetchPokemonSuccess({
-      pokemon: response.body,
+    props.fetchPokemonRequested({
+      id: props.match.params.id,
     });
   },
   (props: Props) => [props.match.params.id],

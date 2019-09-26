@@ -13,7 +13,7 @@ import Style from './Details.style';
 export interface Props extends RouteComponentProps<RouteParams> {
   pokemon?: PokemonType;
   fetchPokemonSuccess: any;
-  fetchPokemonsSuccess: any;
+  fetchPokemonRequested: any;
 }
 
 interface RouteParams {

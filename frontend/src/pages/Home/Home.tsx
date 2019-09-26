@@ -16,8 +16,8 @@ interface RouteParams {
 
 export interface Props extends RouteComponentProps<RouteParams> {
   pokemons: PokemonType[];
-  fetchPokemonSuccess: any;
   fetchPokemonsSuccess: any;
+  fetchPokemonsRequested: any;
 }
 
 function Home(props: Props) {

@@ -1,9 +1,14 @@
 import { AnyAction } from 'redux';
-import {fetchPokemonsSuccess, fetchPokemonSuccess} from "redux/Pokemon/actions";
+import {
+  fetchPokemonRequested,
+  fetchPokemonsRequested,
+  fetchPokemonsSuccess,
+  fetchPokemonSuccess
+} from "redux/Pokemon/actions";
 import {ActionType, getType} from "typesafe-actions";
 import {PokemonStoreType, PokemonType} from './types'
 
-export type PokemonAction = ActionType<typeof fetchPokemonsSuccess | typeof fetchPokemonSuccess>;
+export type PokemonAction = ActionType<typeof fetchPokemonsSuccess | typeof fetchPokemonSuccess | typeof fetchPokemonsRequested | typeof fetchPokemonRequested>;
 
 export interface PokemonState {
   pokemons: PokemonStoreType;
