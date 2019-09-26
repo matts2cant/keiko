@@ -10,7 +10,7 @@ import {normalize} from "services/PokemonNormalizer";
 import HomeStyle from './../Home/Home.style';
 import Style from './Details.style';
 
-interface Props<T> extends RouteComponentProps<T> {
+export interface Props extends RouteComponentProps<RouteParams> {
   pokemon?: PokemonType;
   fetchPokemonSuccess: any;
   fetchPokemonsSuccess: any;
@@ -20,39 +20,14 @@ interface RouteParams {
   id: string;
 }
 
-function Details(props: Props<RouteParams>) {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    const fetchData  = async () => {
-      try {
-        setLoading(true);
-        setError(false);
-        const response = await makeGetRequest("/pokemon/" + props.match.params.id);
-        props.fetchPokemonSuccess({
-          pokemon: response.body,
-        });
-      } catch (e) {
-        setError(true);
-        console.error(`An error occurred in the Home component: ${e}`);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, [props.match.params.id]);
-
-  const loader = <img src={"/loader.svg"} alt={"loader"}/>;
-  const errorMsg = <HomeStyle.Error><FormattedMessage id="pokemon.error" /></HomeStyle.Error>;
+function Details(props: Props) {
+  const { pokemon } = props;
 
   return (
       <HomeStyle.Intro>
           <HomeStyle.Title><FormattedMessage id="pokemon.pokedex" /></HomeStyle.Title>
           <HomeStyle.Container>
-            {error && errorMsg}
-            {loading && loader}
-            {!loading && props.pokemon && <Pokemon {...props.pokemon} detailedView={true} />}
+            {pokemon && <Pokemon {...pokemon} detailedView={true} />}
           </HomeStyle.Container>
       </HomeStyle.Intro>
   );

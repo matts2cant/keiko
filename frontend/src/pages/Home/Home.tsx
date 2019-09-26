@@ -10,47 +10,21 @@ import {makeGetRequest} from "services/networking/request";
 import {normalize} from "services/PokemonNormalizer";
 import Style from './Home.style';
 
-interface Props<T> extends RouteComponentProps<T> {
-  pokemons: PokemonType[];
-  fetchPokemonSuccess: any;
-  fetchPokemonsSuccess: any;
-}
-
 interface RouteParams {
   page: string;
 }
 
-function Home(props: Props<RouteParams>) {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+export interface Props extends RouteComponentProps<RouteParams> {
+  pokemons: PokemonType[];
+}
 
-  useEffect(() => {
-    const fetchData  = async () => {
-      try {
-        setLoading(true);
-        setError(false);
-        const response = await makeGetRequest("/pokemon?page=" + Number(props.match.params.page || 1));
-        props.fetchPokemonsSuccess({
-          pokemons: normalize(response.body),
-        });
-      } catch (e) {
-        setError(true);
-        console.error(`An error occurred in the Home component: ${e}`);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, [props.match.params.page]);
+function Home(props: Props) {
+  const page = Number(props.match.params.page || 1);
+  const { pokemons } = props;
 
   const pokemonComponents = props.pokemons.map((data: PokemonType) =>
     <Pokemon {...data} key={data.id.toString()} detailedView={false} />
   );
-
-  const loader = <img src={"/loader.svg"} alt={"loader"}/>;
-  const errorMsg = <Style.Error><FormattedMessage id="pokemon.error" /></Style.Error>;
-
-  const page = Number(props.match.params.page || 1);
 
   return (
     <Style.Intro>
@@ -61,9 +35,7 @@ function Home(props: Props<RouteParams>) {
         {page < 6 && <Link to={`/pokedex/${page + 1}`}>&raquo;</Link>}
       </Style.Paginator>
       <Style.Container>
-        {error && errorMsg}
-        {loading && loader}
-        {!loading && pokemonComponents}
+        {!!pokemons.length && pokemonComponents}
       </Style.Container>
     </Style.Intro>
   );
