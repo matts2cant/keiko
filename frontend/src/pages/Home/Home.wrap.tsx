@@ -4,8 +4,8 @@ import {getPokemons} from "redux/Pokemon";
 import Actions from 'redux/Pokemon/actions'
 import {RootState} from "redux/types";
 import {makeGetRequest} from "services/networking/request";
-import Home, {Props} from './Home';
 import {normalize} from "services/PokemonNormalizer";
+import Home, {Props} from './Home';
 
 function mapStateToProps(state: RootState) {
   const pokemons = Object.values(getPokemons(state));
