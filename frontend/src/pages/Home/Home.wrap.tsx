@@ -1,4 +1,4 @@
-import withDataFetching from 'HOC/WithDataFetching';
+import withDataFetching from 'components/HOC/WithDataFetching';
 import {connect} from 'react-redux';
 import {getPokemons} from "redux/Pokemon";
 import Actions from 'redux/Pokemon/actions'
