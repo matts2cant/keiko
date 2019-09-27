@@ -1,5 +1,6 @@
 import withDataFetching from 'components/HOC/WithDataFetching';
 import {connect} from 'react-redux';
+import {arePokemonsLoading} from "redux/Loading";
 import {getPokemons} from "redux/Pokemon";
 import Actions from 'redux/Pokemon/actions'
 import {RootState} from "redux/types";
@@ -9,7 +10,8 @@ import Home, {Props} from './Home';
 
 function mapStateToProps(state: RootState) {
   const pokemons = Object.values(getPokemons(state));
-  return { pokemons }
+  const loading = arePokemonsLoading(state);
+  return { pokemons, loading }
 }
 
 const dataFetchingHome = withDataFetching<Props>(

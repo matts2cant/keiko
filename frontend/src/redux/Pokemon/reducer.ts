@@ -17,12 +17,12 @@ export interface PokemonState {
 
 const initialState: PokemonState = {
   pokemons: {},
-  detailedPokemon: undefined
+  detailedPokemon: undefined,
 };
 
 const reducer = (state: PokemonState = initialState, action: AnyAction) => {
   const typedAction = action as PokemonAction;
-  switch(action.type) {
+  switch(typedAction.type) {
     case getType(fetchPokemonsSuccess):
       return {
         ...state,

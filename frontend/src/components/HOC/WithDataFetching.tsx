@@ -5,24 +5,27 @@ import Style from './WithDataFetching.style';
 
 /* eslint-disable react-hooks/rules-of-hooks */
 
-const WithDataFetching = <P extends object>(
+export interface LoadingProps {
+  loading: boolean;
+}
+
+const WithDataFetching = <P extends LoadingProps>(
   dataName: string,
   fetchFunction: (props: P) => any,
   shouldCallEffect: (props: P) => any[],
 ) => (BaseComponent: React.ComponentType<P>) => (props: P) => {
-  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+
+  const loading = props.loading || false;
 
   useEffect(
     () => {
       const fetchData = async () => {
-        setLoading(true);
         try {
           await fetchFunction(props);
         } catch (error) {
           setError(error.toString());
         }
-        setLoading(false);
       };
 
       fetchData();
